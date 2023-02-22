@@ -1,0 +1,17 @@
+<section class="login-form">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <p (click)="sayHi()">Click me!</p>
+
+    <div>
+      <label for="email">Your email</label>
+      <input formControlName="email" type="email" name="" id="email" />
+    </div>
+
+    <div>
+      <label for="password">Your password</label>
+      <input formControlName="password" type="password" name="" id="password" />
+    </div>
+
+    <button [disabled]="!this.loginForm.valid" type="submit">Login</button>
+  </form>
+</section>
