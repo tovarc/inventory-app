@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,17 +20,5 @@ export class DashboardComponent implements OnInit {
       sku: string;
       stock: number;
     }>(this.url);
-
-    // this.http
-    //   .get<{
-    //     id: number;
-    //     name: string;
-    //     price: number;
-    //     sku: string;
-    //     stock: number;
-    //   }>(this.url)
-    //   .subscribe((response) => {
-    //     this.products = response;
-    //   });
   }
 }
