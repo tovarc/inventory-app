@@ -21,16 +21,21 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public showMe: boolean = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    localStorage.setItem('access_token', 'test');
+  }
 
   public login() {
     const url: string = 'http://127.0.0.1:8000/login';
 
     const body = this.loginForm.value;
 
-    this.http.post(url, body).subscribe((response) => {
+    this.http.post(url, body).subscribe((response: any) => {
       if (response) {
-        localStorage.setItem('loggedIn', 'true');
+        localStorage.setItem(
+          'access_token',
+          JSON.stringify(response.access_token)
+        );
         this.router.navigate(['/dashboard']);
       }
     });
