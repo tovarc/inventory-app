@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
     private readonly apiService: ApiService
   ) {}
 
-  public url: string = 'http://127.0.0.1:8000/products';
+  public url: string = 'https://api-sales-app.josetovar.dev/products';
   public products$!: Observable<any>;
 
   public updateProductForm: FormGroup = new FormGroup({});

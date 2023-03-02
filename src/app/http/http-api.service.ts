@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ApiService {
   constructor(private readonly http: HttpClient) {}
 
-  public apiUrl: string = 'http://127.0.0.1:8000';
+  public apiUrl: string = 'https://api-sales-app.josetovar.dev';
 
   public getSingleProduct(productId: number): any {
     return this.http.get(`${this.apiUrl}/products/${productId}`);

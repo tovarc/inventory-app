@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   public login() {
-    const url: string = 'http://127.0.0.1:8000/login';
+    const url: string = 'https://api-sales-app.josetovar.dev/login';
     const body = this.loginForm.value;
 
     this.http.post(url, body).subscribe((response: any) => {
