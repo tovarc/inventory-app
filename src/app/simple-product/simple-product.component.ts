@@ -19,7 +19,7 @@ export class SimpleProductComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const url: string =
-        'http://ec2-100-25-221-93.compute-1.amazonaws.com/products';
+        'http://127.0.0.1:8000/products';
 
       this.apiService
         .getSingleProduct(params['productId'])

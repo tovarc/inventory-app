@@ -25,7 +25,7 @@ export class RegisterComponent {
   }
 
   public register() {
-    const url: string = 'http://ec2-100-25-221-93.compute-1.amazonaws.com/users';
+    const url: string = 'http://127.0.0.1:8000/users';
 
     this.http.post(url, this.registerForm.value).subscribe((response) => {
       if (response) {
