@@ -1,9 +1,10 @@
-import { formatCurrency, getCurrencySymbol } from '@angular/common';
+import { formatCurrency } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ApiService } from '../http/http-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,8 @@ import { ApiService } from '../http/http-api.service';
 export class DashboardComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
-    private readonly apiService: ApiService
+    private readonly apiService: ApiService,
+    private readonly toastr: ToastrService
   ) {}
 
   public url: string = 'https://api-sales-app.josetovar.dev/products';
@@ -21,17 +23,6 @@ export class DashboardComponent implements OnInit {
   public updateProductForm: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
-    // const myString: string = 'word.word.word';
-
-    // console.log(myString.replace('.', '$'));
-    // console.log(myString.replaceAll('.', '$'));
-
-    // const myNumber: string = '24343';
-    // console.log(myNumber);
-    // console.log(Number(myNumber));
-
-    // console.log(+myNumber);
-
     this.products$ = this.http.get<{
       id: number;
       name: string;
@@ -74,32 +65,78 @@ export class DashboardComponent implements OnInit {
       price = Number(value.replaceAll(',', ''));
     }
 
-    // Methods for string
-    // 1. includes
-    // 2. substring()
-    // 3. replaceAll
-
     return price;
   }
 
   public setUpdatedValues(product: any): void {
+    const { price } = this.updateProductForm.controls[product.id].value;
+
     const updatedValues = {
       ...product,
       ...this.updateProductForm.controls[product.id].value,
+      price: +price.substring(1).replaceAll(',', '').replaceAll('.', ''),
     };
 
-    console.log(updatedValues);
-
-    // this.apiService
-    //   .updateSingeProduct(updatedValues)
-    //   .subscribe((response: any) => {
-    //     console.log(response);
-    //   });
+    this.apiService
+      .updateSingeProduct(updatedValues)
+      .subscribe((response: any) => {
+        if (response)
+          this.toastr.success(
+            `Product with ID: ${product.id} has been updated successfully.`
+          );
+      });
   }
 
   public setDisableValue(product: any): boolean {
     const { price, stock } = this.updateProductForm.controls[product.id].value;
 
     return price == product.price && stock == product.stock;
+  }
+
+  public updateProductStatus(product: any, event: any) {
+    const status = event.target.checked;
+
+    this.http
+      .put(
+        `https://api-sales-app.josetovar.dev/product-status/${product.id}?status=${status}`,
+        {}
+      )
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            this.toastr.success(
+              `Product with ID: ${product.id} has been activated successfully.`
+            );
+          }
+        },
+        error: (error) => {
+          this.toastr.error(`Product with ID: ${product.id} does not exist.`);
+        },
+        complete: () => {
+          console.log('Is good');
+        },
+      });
+
+    // console.log(event.target.checked);
+  }
+
+  public deleteProduct(product: any) {
+    this.http
+      .delete(`https://api-sales-app.josetovar.dev/products/${product.id}`)
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            this.toastr.success(
+              `Product with ID: ${product.id} has been deleted successfully.`
+            );
+          }
+        },
+        error: (error) => {
+          this.toastr.error(`Product with ID: ${product.id} does not exist.`);
+        },
+        complete: () => {
+          console.log('Is good');
+        },
+      });
   }
 }
