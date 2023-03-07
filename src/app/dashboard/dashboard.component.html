@@ -1,4 +1,44 @@
 <section class="container mx-auto">
+  <!-- Start Filters -->
+
+  <!-- <button (click)="setFilters()">testing filter</button> -->
+
+  <div class="flex items-center mb-6">
+    <div class="mr-6">
+      <label
+        for="hs-select-label"
+        class="block text-sm font-medium mb-2 dark:text-white"
+        >Filter Status</label
+      >
+      <select
+        (change)="setFilters($event)"
+        id="hs-select-label"
+        class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+      >
+        <option value="">All products</option>
+        <option value="true">Only active products</option>
+        <option value="false">Only inactive products</option>
+      </select>
+    </div>
+    <div>
+      <label
+        for="hs-select-label"
+        class="block text-sm font-medium mb-2 dark:text-white"
+        >Filter Stock</label
+      >
+      <select
+        id="hs-select-label"
+        class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+      >
+        <option value="2">All products</option>
+        <option value="2">Only products in stock</option>
+        <option value="3">Only products out of stock</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- End Filters -->
+
   <div class="flex flex-col">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">

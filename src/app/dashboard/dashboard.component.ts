@@ -2,7 +2,7 @@ import { formatCurrency } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { ApiService } from '../http/http-api.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -44,6 +44,23 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  public setFilters(activeEvent: any): void {
+    this.products$ = this.http.get<any>(this.url).pipe(
+      map((products: any) => {
+        if (activeEvent.target.value) {
+          return products.filter(
+            (product: any) =>
+              product.active.toString() === activeEvent.target.value
+          );
+        } else {
+          return products;
+        }
+      })
+    );
+  }
+
+  public setFilterStock(): void {}
+
   public setFormatCurrency(product: any, event: any): void {
     const price = formatCurrency(
       this.getValueFromCurrency(event.target.value),
@@ -77,14 +94,17 @@ export class DashboardComponent implements OnInit {
       price: +price.substring(1).replaceAll(',', '').replaceAll('.', ''),
     };
 
-    this.apiService
-      .updateSingeProduct(updatedValues)
-      .subscribe((response: any) => {
+    this.apiService.updateSingeProduct(updatedValues).subscribe(
+      (response: any) => {
         if (response)
           this.toastr.success(
             `Product with ID: ${product.id} has been updated successfully.`
           );
-      });
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   public setDisableValue(product: any): boolean {
@@ -116,8 +136,6 @@ export class DashboardComponent implements OnInit {
           console.log('Is good');
         },
       });
-
-    // console.log(event.target.checked);
   }
 
   public deleteProduct(product: any) {
