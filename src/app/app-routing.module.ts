@@ -1,34 +1,37 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginGuard } from './auth/login.guard';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { SimpleProductComponent } from './simple-product/simple-product.component';
+import { PreloadAllModules } from '@angular/router';
+import { LoginGuard } from './core/auth/login.guard';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
-    // canActivate: [LoginGuard],
+    loadChildren: () =>
+      import('./modules/login/login.module').then((m) => m.LoginModule),
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    loadChildren: () =>
+      import('./modules/register/register.module').then(
+        (m) => m.RegisterModule
+      ),
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-  },
-  {
-    path: 'product/:productId',
-    component: SimpleProductComponent,
+    loadChildren: () =>
+      import('./modules/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+    canActivate: [LoginGuard],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+    }),
+  ],
   exports: [RouterModule],
-  providers: [LoginGuard],
 })
 export class AppRoutingModule {}

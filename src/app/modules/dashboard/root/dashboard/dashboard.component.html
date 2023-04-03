@@ -1,0 +1,151 @@
+<div class="flex">
+  <div class="bg-white flex items-center flex-col h-screen w-[18rem]">
+    <h1 class="text-xl mb-8 p-6 w-full font-bold flex items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="mr-4 w-6 h-6"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      Inventory App
+    </h1>
+    <nav class="w-full">
+      <p class="px-6 mb-3 font-medium">Menu</p>
+      <ul class="font-medium">
+        <li class="mb-4">
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="text-blue-700 border-blue-700"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center pl-8 h-10 border-l-4 border-r-0 border-y-0 border-transparent hover:border-blue-700 hover:text-blue-700 w-full"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 mr-4"
+            >
+              <path
+                d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z"
+              />
+              <path
+                d="M3.265 10.602l7.668 4.129a2.25 2.25 0 002.134 0l7.668-4.13 1.37.739a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.71 0l-9.75-5.25a.75.75 0 010-1.32l1.37-.738z"
+              />
+              <path
+                d="M10.933 19.231l-7.668-4.13-1.37.739a.75.75 0 000 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z"
+              />
+            </svg>
+
+            Overview</a
+          >
+        </li>
+        <li class="mb-4">
+          <a
+            routerLink="/dashboard/products"
+            routerLinkActive="bg-gray-200"
+            class="flex items-center pl-8 h-10 border-l-4 border-r-0 border-y-0 border-transparent hover:border-blue-700 hover:text-blue-700 w-full"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 mr-4"
+            >
+              <path
+                d="M12.378 1.602a.75.75 0 00-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03zM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 00.372-.648V7.93zM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 00.372.648l8.628 5.033z"
+              />
+            </svg>
+
+            Products</a
+          >
+        </li>
+        <li class="mb-4">
+          <a
+            routerLink="/dashboard/clients"
+            routerLinkActive="text-blue-700 border-blue-700"
+            class="flex items-center pl-8 h-10 border-l-4 border-r-0 border-y-0 border-transparent hover:border-blue-700 hover:text-blue-700 w-full"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 mr-4"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            Clients</a
+          >
+        </li>
+        <li class="mb-4">
+          <a
+            routerLink="/dashboard/sales"
+            routerLinkActive="text-blue-700 border-blue-700"
+            class="flex items-center pl-8 h-10 border-l-4 border-r-0 border-y-0 border-transparent hover:border-blue-700 hover:text-blue-700 w-full"
+          >
+            <!-- <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 mr-4"
+            >
+              <path
+                d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+              />
+            </svg> -->
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 mr-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+              />
+            </svg>
+
+            Sales</a
+          >
+        </li>
+        <li class="mb-4">
+          <a
+            routerLink="/"
+            class="flex items-center pl-8 h-10 border-l-4 border-r-0 border-y-0 border-transparent hover:border-blue-700 hover:text-blue-700 w-full"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 mr-4"
+            >
+              <path
+                d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
+              />
+            </svg>
+
+            Reports</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <main class="px-10 py-6 w-full bg-gray-50 h-screen overflow-y-scroll">
+    <router-outlet></router-outlet>
+  </main>
+</div>

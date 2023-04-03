@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Users } from './fake-users';
 
 @Component({
   selector: 'app-login',

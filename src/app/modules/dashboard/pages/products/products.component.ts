@@ -1,35 +1,30 @@
 import { formatCurrency } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { filter, map, Observable } from 'rxjs';
-import { ApiService } from '../http/http-api.service';
 import { ToastrService } from 'ngx-toastr';
+import { map, Observable } from 'rxjs';
+import { ApiService } from '../../../../core/http/api.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
+  selector: 'app-dashboard-products',
+  templateUrl: './products.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export class ProductsComponent implements OnInit {
   constructor(
-    private readonly http: HttpClient,
     private readonly apiService: ApiService,
     private readonly toastr: ToastrService
   ) {}
 
-  public url: string = 'https://api-sales-app.josetovar.dev/products';
   public products$!: Observable<any>;
+
+  public page: number = 1;
+  public rowsPerPage: number = 100;
 
   public updateProductForm: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
-    this.products$ = this.http.get<{
-      id: number;
-      name: string;
-      price: number;
-      sku: string;
-      stock: number;
-    }>(this.url);
+    this.products$ = this.apiService.getAllProducts();
 
     this.products$.subscribe((products) => {
       products.map((product: any) => {
@@ -44,8 +39,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  public changePage(page: number) {
+    this.page = page;
+  }
+
   public setFilters(activeEvent: any): void {
-    this.products$ = this.http.get<any>(this.url).pipe(
+    this.products$ = this.apiService.getAllProducts().pipe(
       map((products: any) => {
         if (activeEvent.target.value) {
           return products.filter(
@@ -94,7 +93,7 @@ export class DashboardComponent implements OnInit {
       price: +price.substring(1).replaceAll(',', '').replaceAll('.', ''),
     };
 
-    this.apiService.updateSingeProduct(updatedValues).subscribe(
+    this.apiService.updateSingleProduct(updatedValues).subscribe(
       (response: any) => {
         if (response)
           this.toastr.success(
@@ -116,45 +115,38 @@ export class DashboardComponent implements OnInit {
   public updateProductStatus(product: any, event: any) {
     const status = event.target.checked;
 
-    this.http
-      .put(
-        `https://api-sales-app.josetovar.dev/product-status/${product.id}?status=${status}`,
-        {}
-      )
-      .subscribe({
-        next: (response) => {
-          if (response) {
-            this.toastr.success(
-              `Product with ID: ${product.id} has been activated successfully.`
-            );
-          }
-        },
-        error: (error) => {
-          this.toastr.error(`Product with ID: ${product.id} does not exist.`);
-        },
-        complete: () => {
-          console.log('Is good');
-        },
-      });
+    this.apiService.updateProductStatus(product.id, status).subscribe({
+      next: (response: any) => {
+        if (response) {
+          this.toastr.success(
+            `Product with ID: ${product.id} has been activated successfully.`
+          );
+        }
+      },
+      error: (error: any) => {
+        this.toastr.error(`Product with ID: ${product.id} does not exist.`);
+      },
+      complete: () => {
+        console.log('Is good');
+      },
+    });
   }
 
   public deleteProduct(product: any) {
-    this.http
-      .delete(`https://api-sales-app.josetovar.dev/products/${product.id}`)
-      .subscribe({
-        next: (response) => {
-          if (response) {
-            this.toastr.success(
-              `Product with ID: ${product.id} has been deleted successfully.`
-            );
-          }
-        },
-        error: (error) => {
-          this.toastr.error(`Product with ID: ${product.id} does not exist.`);
-        },
-        complete: () => {
-          console.log('Is good');
-        },
-      });
+    this.apiService.deleteProduct(product.id).subscribe({
+      next: (response: any) => {
+        if (response) {
+          this.toastr.success(
+            `Product with ID: ${product.id} has been deleted successfully.`
+          );
+        }
+      },
+      error: (error: any) => {
+        this.toastr.error(`Product with ID: ${product.id} does not exist.`);
+      },
+      complete: () => {
+        console.log('Is good');
+      },
+    });
   }
 }
